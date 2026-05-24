@@ -1,4 +1,3 @@
-````md
 # Inventory Reservation System
 
 A real-time inventory reservation system built using Next.js, Prisma, PostgreSQL (Supabase), and Vercel deployment.
