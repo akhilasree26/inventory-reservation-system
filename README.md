@@ -184,7 +184,7 @@ DATABASE_URL
 DIRECT_URL
 ```
 
-
+---
 # Trade-offs / Future Improvements
 
 With more time, the following improvements can be added:
