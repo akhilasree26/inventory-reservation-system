@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inventory Reservation System
 
-## Getting Started
+A real-time inventory reservation system built using Next.js, Prisma, PostgreSQL (Supabase), and Vercel deployment.
 
-First, run the development server:
+# Live Demo
+
+https://inventory-reservation-system-indol.vercel.app
+
+# GitHub Repository
+
+https://github.com/akhilasree26/inventory-reservation-system
+
+# Features
+
+- Product listing with warehouse inventory
+- Real-time inventory tracking
+- Reserve inventory items
+- Confirm reservation flow
+- Cancel reservation flow
+- Automatic inventory release after expiry
+- REST API architecture
+- Professional responsive UI
+- Prisma ORM with PostgreSQL
+- Deployed on Vercel
+
+# Tech Stack
+
+- Next.js 16
+- TypeScript
+- Prisma ORM
+- PostgreSQL (Supabase)
+- Vercel
+
+# API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | Get products with stock details |
+| GET | `/api/warehouses` | Get all warehouses |
+| POST | `/api/reservations` | Create reservation |
+| POST | `/api/reservations/:id/confirm` | Confirm reservation |
+| POST | `/api/reservations/:id/release` | Cancel/release reservation |
+
+# Local Setup Instructions
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/akhilasree26/inventory-reservation-system.git
+cd inventory-reservation-system
+
+## 2. Install Dependencies
+
+```bash
+npm install
+
+## 3. Configure Environment Variables
+
+Create a `.env` file in the project root.
+
+Add the following:
+
+```env
+DATABASE_URL=your_supabase_database_url
+DIRECT_URL=your_supabase_database_url
+
+Example:
+
+```env
+DATABASE_URL=postgresql://postgres.xxxxx:password@aws-0-ap-south-1.pooler.supabase.com:6543/postgres
+DIRECT_URL=postgresql://postgres.xxxxx:password@aws-0-ap-south-1.pooler.supabase.com:6543/postgres
+```
+
+## 4. Run Prisma Migration
+
+```bash
+npx prisma migrate dev
+
+## 5. Seed Database
+
+```bash
+npx prisma db seed
+
+## 6. Generate Prisma Client
+
+```bash
+npx prisma generate
+
+## 7. Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Application will run on:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Reservation Expiry Mechanism
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+When a reservation is created:
 
-## Deploy on Vercel
+* Reserved stock is deducted immediately from available inventory.
+* Every reservation receives an `expiresAt` timestamp.
+* If user confirms before expiry:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  * Reservation status becomes `CONFIRMED`
+  * Reserved stock remains allocated.
+* If reservation is cancelled:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  * Reserved stock is restored.
+  * Reservation status becomes `RELEASED`.
+* If reservation expires:
+
+  * API returns HTTP `410 Gone`
+  * Reserved stock is automatically restored.
+
+This prevents overselling and keeps inventory consistent.
+
+# Error Handling
+
+## 409 Conflict
+
+Returned when:
+
+* Requested stock quantity exceeds available inventory.
+
+## 410 Gone
+
+Returned when:
+
+* Reservation has expired.
+
+Both errors are displayed in the frontend UI.
+
+
+# Production Deployment
+
+Frontend and APIs are deployed on Vercel.
+
+Database is hosted on Supabase PostgreSQL.
+
+Environment Variables configured in Vercel:
+
+```env
+DATABASE_URL
+DIRECT_URL
+
+
+
+# Author
+
+Akhila Sree
