@@ -1,14 +1,21 @@
+````md
 # Inventory Reservation System
 
 A real-time inventory reservation system built using Next.js, Prisma, PostgreSQL (Supabase), and Vercel deployment.
+
+---
 
 # Live Demo
 
 https://inventory-reservation-system-indol.vercel.app
 
+---
+
 # GitHub Repository
 
 https://github.com/akhilasree26/inventory-reservation-system
+
+---
 
 # Features
 
@@ -23,6 +30,8 @@ https://github.com/akhilasree26/inventory-reservation-system
 - Prisma ORM with PostgreSQL
 - Deployed on Vercel
 
+---
+
 # Tech Stack
 
 - Next.js 16
@@ -30,6 +39,8 @@ https://github.com/akhilasree26/inventory-reservation-system
 - Prisma ORM
 - PostgreSQL (Supabase)
 - Vercel
+
+---
 
 # API Endpoints
 
@@ -41,6 +52,8 @@ https://github.com/akhilasree26/inventory-reservation-system
 | POST | `/api/reservations/:id/confirm` | Confirm reservation |
 | POST | `/api/reservations/:id/release` | Cancel/release reservation |
 
+---
+
 # Local Setup Instructions
 
 ## 1. Clone Repository
@@ -48,12 +61,17 @@ https://github.com/akhilasree26/inventory-reservation-system
 ```bash
 git clone https://github.com/akhilasree26/inventory-reservation-system.git
 cd inventory-reservation-system
+````
+
+---
 
 ## 2. Install Dependencies
 
 ```bash
 npm install
 ```
+
+---
 
 ## 3. Configure Environment Variables
 
@@ -64,6 +82,7 @@ Add the following:
 ```env
 DATABASE_URL=your_supabase_database_url
 DIRECT_URL=your_supabase_database_url
+```
 
 Example:
 
@@ -72,32 +91,45 @@ DATABASE_URL=postgresql://postgres.xxxxx:password@aws-0-ap-south-1.pooler.supaba
 DIRECT_URL=postgresql://postgres.xxxxx:password@aws-0-ap-south-1.pooler.supabase.com:6543/postgres
 ```
 
+---
+
 ## 4. Run Prisma Migration
 
 ```bash
 npx prisma migrate dev
+```
+
+---
 
 ## 5. Seed Database
 
 ```bash
 npx prisma db seed
+```
+
+---
 
 ## 6. Generate Prisma Client
 
 ```bash
 npx prisma generate
+```
+
+---
 
 ## 7. Start Development Server
 
 ```bash
 npm run dev
-
+```
 
 Application will run on:
 
+```txt
 http://localhost:3000
+```
 
-
+---
 
 # Reservation Expiry Mechanism
 
@@ -120,6 +152,8 @@ When a reservation is created:
 
 This prevents overselling and keeps inventory consistent.
 
+---
+
 # Error Handling
 
 ## 409 Conflict
@@ -136,6 +170,7 @@ Returned when:
 
 Both errors are displayed in the frontend UI.
 
+---
 
 # Production Deployment
 
@@ -148,9 +183,30 @@ Environment Variables configured in Vercel:
 ```env
 DATABASE_URL
 DIRECT_URL
+```
 
+---
 
+# Trade-offs / Future Improvements
+
+With more time, the following improvements can be added:
+
+* Redis-based distributed reservation locking
+* Background cron jobs for expiry cleanup
+* User authentication system
+* Reservation analytics dashboard
+* Automated testing
+* Docker support
+* Better loading states and animations
+* Search and filtering
+* Pagination
+* API rate limiting and security improvements
+
+---
 
 # Author
 
 Akhila Sree
+
+```
+```
