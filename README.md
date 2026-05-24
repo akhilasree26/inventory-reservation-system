@@ -53,6 +53,7 @@ cd inventory-reservation-system
 
 ```bash
 npm install
+```
 
 ## 3. Configure Environment Variables
 
